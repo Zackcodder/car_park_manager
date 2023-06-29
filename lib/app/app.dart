@@ -13,6 +13,7 @@ import 'package:car_park_manager/services/geo_location_service.dart';
 import 'package:car_park_manager/services/map_toolkit_service.dart';
 import 'package:car_park_manager/ui/views/main_page/main_page_view.dart';
 import 'package:car_park_manager/services/places_service.dart';
+import 'package:car_park_manager/ui/views/profile/profile_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -24,6 +25,7 @@ import 'package:car_park_manager/services/places_service.dart';
     MaterialRoute(page: QrscannerView),
     MaterialRoute(page: QrcodeGeneratorView),
     MaterialRoute(page: MainPageView),
+    MaterialRoute(page: ProfileView),
 // @stacked-route
   ],
   dependencies: [
@@ -32,6 +34,7 @@ import 'package:car_park_manager/services/places_service.dart';
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: GoogleMapService),
     LazySingleton(classType: GeoLocationService),
+    LazySingleton(classType: SnackbarService),
     LazySingleton(classType: MapToolkitService),
     LazySingleton(classType: PlacesService),
 // @stacked-service

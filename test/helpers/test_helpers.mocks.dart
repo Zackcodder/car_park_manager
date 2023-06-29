@@ -6,6 +6,7 @@
 import 'dart:async' as _i5;
 import 'dart:ui' as _i6;
 
+import 'package:car_park_manager/models/place.dart' as _i12;
 import 'package:car_park_manager/services/geo_location_service.dart' as _i9;
 import 'package:car_park_manager/services/google_map_service.dart' as _i7;
 import 'package:car_park_manager/services/map_toolkit_service.dart' as _i10;
@@ -901,4 +902,29 @@ class MockMapToolkitService extends _i1.Mock implements _i10.MapToolkitService {
 /// A class which mocks [PlacesService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPlacesService extends _i1.Mock implements _i11.PlacesService {}
+class MockPlacesService extends _i1.Mock implements _i11.PlacesService {
+  @override
+  String get key => (super.noSuchMethod(
+        Invocation.getter(#key),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
+  _i5.Future<List<_i12.PlaceModel>> getPlaces(
+    double? lat,
+    double? lng,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getPlaces,
+          [
+            lat,
+            lng,
+          ],
+        ),
+        returnValue:
+            _i5.Future<List<_i12.PlaceModel>>.value(<_i12.PlaceModel>[]),
+        returnValueForMissingStub:
+            _i5.Future<List<_i12.PlaceModel>>.value(<_i12.PlaceModel>[]),
+      ) as _i5.Future<List<_i12.PlaceModel>>);
+}

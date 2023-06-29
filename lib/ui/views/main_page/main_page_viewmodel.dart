@@ -6,16 +6,15 @@ import 'package:car_park_manager/models/place.dart';
 import 'package:car_park_manager/services/geo_location_service.dart';
 import 'package:car_park_manager/services/google_map_service.dart';
 import 'package:car_park_manager/services/places_service.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get_it/get_it.dart';
 import 'package:stacked/stacked.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:car_park_manager/services/places_service.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class MainPageViewModel extends BaseViewModel {
-  // final getIt = GetIt.instance;
-  // // google map service
-  // final googleMapService = locator<GoogleMapService>();
+  // google map service
+  final _googleMapService = locator<GoogleMapService>();
+  final _geoLocationService = locator<GeoLocationService>();
 
   // final _snackbarService = locator<SnackbarService>();
 
@@ -23,32 +22,32 @@ class MainPageViewModel extends BaseViewModel {
 
   final _navigationService = locator<NavigationService>();
 
-  // get googlePlex => googleMapService.googlePlex;
+  get googlePlex => _googleMapService.googlePlex;
 
-  // dynamic _currentPosition;
+  dynamic _currentPosition;
 
   // /// returns current position
-  // get currentPosition async =>
-  //     _currentPosition ??= await geoLocationService.getCurrentPosition();
+  get currentPosition async =>
+      _currentPosition ??= await _geoLocationService.getCurrentPosition();
 
-  // init() async {
-  //   _currentPosition = await geoLocationService.getCurrentPosition();
-  //   notifyListeners();
-  // }
+  init() async {
+    _currentPosition = await _geoLocationService.getCurrentPosition();
+    notifyListeners();
+  }
 
-  // convertPositionToLatLng(position) =>
-  //     googleMapService.convertPositionToLatLng(position);
+  convertPositionToLatLng(position) =>
+      _googleMapService.convertPositionToLatLng(position);
 
-  // Stream get getPositionStream => geoLocationService.getPositionStream();
+  Stream get getPositionStream => _geoLocationService.getPositionStream();
 
-  // locationUpdates(position) async =>
-  //     googleMapService.locationUpdates(position: position);
+  locationUpdates(position) async =>
+      _googleMapService.locationUpdates(position: position);
 
-  // get cameraUpdate {
-  //   return googleMapService.cameraUpdate;
-  // }
+  get cameraUpdate {
+    return _googleMapService.cameraUpdate;
+  }
 
-  // get circles => googleMapService.mainPageCircles(_currentPosition);
+  get circles => _googleMapService.mainPageCircles(_currentPosition);
   // get markers => googleMapService.markers;
   final PlacesService _placeService = locator<PlacesService>();
   PlaceModel driver = PlaceModel();
@@ -59,6 +58,21 @@ class MainPageViewModel extends BaseViewModel {
   Future<void> fetchPlaces() async {
     placeList = await _placeService.getPlaces(10.4418805593, 7.49562339819);
     notifyListeners();
+  }
+
+  triggerNotifications() async {
+    await AwesomeNotifications().getLocalTimeZoneIdentifier();
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: 1,
+        channelKey: 'basic_channel',
+        title: 'New Flick Notification',
+        body: 'New Update Available',
+        wakeUpScreen: true,
+        category: NotificationCategory.Alarm,
+        notificationLayout: NotificationLayout.BigPicture,
+      ),
+    );
   }
 
   // navigates to feedback
@@ -79,6 +93,11 @@ class MainPageViewModel extends BaseViewModel {
   //navigates to Qrcode scanner
   nToQrCodeScan() {
     _navigationService.navigateTo(Routes.qrscannerView);
+  }
+
+  //navigates to Profile Page
+  nToProfilePage() {
+    _navigationService.navigateTo(Routes.profileView);
   }
 
   signOut() {

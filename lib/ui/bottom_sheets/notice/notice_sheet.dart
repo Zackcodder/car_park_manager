@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:car_park_manager/ui/common/app_colors.dart';
 import 'package:car_park_manager/ui/common/ui_helpers.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -22,31 +23,55 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
     Widget? child,
   ) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      color: Colors.white,
+      height: 100.0,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            request.title!,
-            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
+          const Text(
+            'Choose Profile Picture',
+            style: TextStyle(
+              fontSize: 20.0,
+            ),
           ),
-          verticalSpaceTiny,
-          Text(
-            request.description!,
-            style: const TextStyle(fontSize: 14, color: kcMediumGrey),
-            maxLines: 3,
-            softWrap: true,
+          const SizedBox(
+            height: 20.0,
           ),
-          verticalSpaceLarge,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton.icon(
+                onPressed: () {
+                  // viewModel.takePhoto(ImageSource.gallery);
+                  viewModel.pickImage(context, ImageSource.gallery);
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.image),
+                label: const Text(
+                  'Gallary',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20.0,
+                  ),
+                ),
+              ),
+              TextButton.icon(
+                onPressed: () {
+                  // viewModel.takePhoto(ImageSource.camera);
+                  viewModel.pickImage(context, ImageSource.camera);
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.camera),
+                label: const Text(
+                  'Camera',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-        ),
       ),
     );
   }

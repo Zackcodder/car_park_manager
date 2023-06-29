@@ -9,14 +9,15 @@ import 'package:car_park_manager/ui/views/feedback/feedback_view.dart' as _i4;
 import 'package:car_park_manager/ui/views/home/home_view.dart' as _i2;
 import 'package:car_park_manager/ui/views/login/login_view.dart' as _i5;
 import 'package:car_park_manager/ui/views/main_page/main_page_view.dart' as _i8;
+import 'package:car_park_manager/ui/views/profile/profile_view.dart' as _i9;
 import 'package:car_park_manager/ui/views/qrcode_generator/qrcode_generator_view.dart'
     as _i7;
 import 'package:car_park_manager/ui/views/qrscanner/qrscanner_view.dart' as _i6;
 import 'package:car_park_manager/ui/views/startup/startup_view.dart' as _i3;
-import 'package:flutter/material.dart' as _i9;
+import 'package:flutter/material.dart' as _i10;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i10;
+import 'package:stacked_services/stacked_services.dart' as _i11;
 
 class Routes {
   static const homeView = '/home-view';
@@ -33,6 +34,8 @@ class Routes {
 
   static const mainPageView = '/main-page-view';
 
+  static const profileView = '/profile-view';
+
   static const all = <String>{
     homeView,
     startupView,
@@ -41,6 +44,7 @@ class Routes {
     qrscannerView,
     qrcodeGeneratorView,
     mainPageView,
+    profileView,
   };
 }
 
@@ -74,35 +78,39 @@ class StackedRouter extends _i1.RouterBase {
       Routes.mainPageView,
       page: _i8.MainPageView,
     ),
+    _i1.RouteDef(
+      Routes.profileView,
+      page: _i9.ProfileView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.HomeView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.FeedbackView: (data) {
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.FeedbackView(),
         settings: data,
       );
     },
     _i5.LoginView: (data) {
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.LoginView(),
         settings: data,
       );
     },
     _i6.QrscannerView: (data) {
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.QrscannerView(),
         settings: data,
       );
@@ -111,14 +119,20 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<QrcodeGeneratorViewArguments>(
         orElse: () => const QrcodeGeneratorViewArguments(),
       );
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => _i7.QrcodeGeneratorView(key: args.key),
         settings: data,
       );
     },
     _i8.MainPageView: (data) {
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.MainPageView(),
+        settings: data,
+      );
+    },
+    _i9.ProfileView: (data) {
+      return _i10.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i9.ProfileView(),
         settings: data,
       );
     },
@@ -133,7 +147,7 @@ class StackedRouter extends _i1.RouterBase {
 class QrcodeGeneratorViewArguments {
   const QrcodeGeneratorViewArguments({this.key});
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
   @override
   String toString() {
@@ -152,7 +166,7 @@ class QrcodeGeneratorViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i10.NavigationService {
+extension NavigatorStateExtension on _i11.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -224,7 +238,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> navigateToQrcodeGeneratorView({
-    _i9.Key? key,
+    _i10.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -247,6 +261,20 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition,
   ]) async {
     return navigateTo<dynamic>(Routes.mainPageView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToProfileView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.profileView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -324,7 +352,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> replaceWithQrcodeGeneratorView({
-    _i9.Key? key,
+    _i10.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -347,6 +375,20 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.mainPageView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithProfileView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.profileView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

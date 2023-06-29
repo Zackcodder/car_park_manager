@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:social_login_buttons/social_login_buttons.dart';
+
 import 'package:stacked/stacked.dart';
 
 import 'login_viewmodel.dart';
@@ -13,6 +15,41 @@ class LoginView extends StackedView<LoginViewModel> {
     super.onViewModelReady(viewModel);
   }
 
+  Widget _buildContainer(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SocialLoginButton(
+                buttonType: SocialLoginButtonType.apple,
+                onPressed: () {},
+              ),
+              const SizedBox(height: 10),
+              SocialLoginButton(
+                buttonType: SocialLoginButtonType.twitter,
+                onPressed: () {},
+              ),
+              const SizedBox(height: 10),
+              SocialLoginButton(
+                buttonType: SocialLoginButtonType.facebook,
+                onPressed: () {},
+              ),
+              const SizedBox(height: 10),
+              SocialLoginButton(
+                buttonType: SocialLoginButtonType.google,
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget builder(
     BuildContext context,
@@ -21,50 +58,32 @@ class LoginView extends StackedView<LoginViewModel> {
   ) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            const SizedBox(height: 130),
-            //Login Header
-            const Center(
-              child: Text('LOGIN',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            ),
-            // Fingerprint logo
-            Container(
-              margin: const EdgeInsets.only(bottom: 130, left: 30, right: 120),
-              child: const IconButton(
-                onPressed: null,
-                //'_authenticate',
-                icon: Icon(Icons.fingerprint_sharp,
-                    size: 150, color: Colors.blue),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 130),
+              //Login Header
+              const Center(
+                child: Text('Login ',
+                    style:
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               ),
-            ),
-            const Text('Fingerprint Auth', style: TextStyle(fontSize: 20.0)),
-            const Text('Authenticate using your fingerprint',
-                style: TextStyle(fontSize: 16.0)),
-            // Fingerprint Authenticate Button
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 10.0),
-              child: Material(
-                borderRadius: BorderRadius.circular(5.0),
-                color: const Color.fromARGB(255, 20, 118, 197).withOpacity(1.0),
-                elevation: 10.0,
-                child: MaterialButton(
-                  //calls the function to authenticate the fingerprint
+              // Fingerprint logo
+              Container(
+                margin: const EdgeInsets.only(bottom: 30, left: 50, right: 80),
+                child: IconButton(
                   onPressed: viewModel.authenticate,
-                  minWidth: MediaQuery.of(context).size.width,
-                  child: const Text(
-                    "Authenticate",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                    ),
-                  ),
+                  icon: const Icon(Icons.fingerprint_sharp,
+                      size: 70, color: Colors.blue),
                 ),
               ),
-            ),
-          ],
+              const Text('Fingerprint Auth', style: TextStyle(fontSize: 20.0)),
+              const Text('\n\nSignIn with Social Account',
+                  style: TextStyle(fontSize: 16.0)),
+              //Social Media login Buttons
+              _buildContainer(context)
+            ],
+          ),
         ),
       ),
     );

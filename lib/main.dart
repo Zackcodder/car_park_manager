@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:car_park_manager/app/app.bottomsheets.dart';
 import 'package:car_park_manager/app/app.dialogs.dart';
@@ -8,8 +9,18 @@ import 'package:car_park_manager/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 Future<void> main() async {
+  AwesomeNotifications().initialize(
+    null,
+    [
+      NotificationChannel(
+        channelKey: 'basic_channel',
+        channelName: 'Basic Notification',
+        channelDescription: 'Notification channel for basic tests',
+      ),
+    ],
+    debug: true,
+  );
   WidgetsFlutterBinding.ensureInitialized();
-
   setupLocator();
   setupDialogUi();
   setupBottomSheetUi();

@@ -50,6 +50,9 @@ dependencies:
   flutter_dotenv: ^5.0.2
   custom_check_box: ^0.0.4
   roundcheckbox: ^2.0.5
+  social_login_buttons: ^1.0.7
+  awesome_notifications: ^0.7.4+1
+  image_picker: ^1.0.0
 
 dev_dependencies:
   flutter_test:
