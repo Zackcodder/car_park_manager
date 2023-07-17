@@ -1,58 +1,20 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+
 import 'package:car_park_manager/app/app.bottomsheets.dart';
 import 'package:car_park_manager/app/app.locator.dart';
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class ProfileViewModel extends BaseViewModel {
   File? _image;
   File? get image => _image;
   final _bottomSheetService = locator<BottomSheetService>();
 
-  // for uploading of profile picture
-  // Widget imageProfile() {
-  //   return Center(
-  //     heightFactor: 2,
-  //     child: Stack(
-  //       children: [
-  //         CircleAvatar(
-  //           backgroundColor: Colors.black,
-  //           radius: 80.0,
-  //           child: ClipRRect(
-  //             borderRadius: BorderRadius.circular(50.0),
-  //             child: image == null
-  //                 ? const Icon(
-  //                     Icons.person,
-  //                     size: 50,
-  //                     color: Colors.white,
-  //                   )
-  //                 : CircleAvatar(
-  //                     radius: 80,
-  //                     backgroundImage: FileImage(_image),
-  //                   ),
-  //           ),
-  //         ),
-  //         Positioned(
-  //           bottom: 20.0,
-  //           right: 10.0,
-  //           child: InkWell(
-  //             onTap: () {
-  //               showUpdateStatusBottomSheet();
-  //             },
-  //             child: const Icon(
-  //               Icons.camera_alt,
-  //               color: Colors.blue,
-  //               size: 30.0,
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+  // static const String _imageBox = 'selected_image';
+  // static const String _imageKey = 'image_path';
 
   //Bottom pop up menu to upload picture form camera or gallary
   showUpdateStatusBottomSheet() async {
@@ -62,16 +24,63 @@ class ProfileViewModel extends BaseViewModel {
     );
   }
 
-  // void takePhoto(ImageSource source) async {
-  //   final picker = ImagePicker();
-  //   final pickImage = await picker.pickImage(source: source);
-  //   if (pickImage != null) {
-  //     _image = File(pickImage.path);
+  // //Save Selected image
+  // saveImage() async {
+  //   if (_image != null) {
+  //     final box = await Hive.openBox(_imageBox);
+  //     await box.put(_imageKey, _image!.path);
+  //     box.close();
+  //   }
+  // }
+
+  // //load saved selected image
+  // loadImage() async {
+  //   final box = await Hive.openBox(_imageBox);
+  //   final imagePath = box.get(_imageKey);
+  //   box.close();
+  //   if (imagePath != null) {
+  //     _image = File(imagePath);
   //     notifyListeners();
   //   }
   // }
 
-  // profile details
+  takePhoto(BuildContext context) async {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext ctx) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(Icons.photo_library),
+                title: Text('Choose from Gallery'),
+                onTap: () async {
+                  final pickedImage = await ImagePicker()
+                      .pickImage(source: ImageSource.gallery);
+                  if (pickedImage != null) {
+                    _image = File(pickedImage.path);
+                    notifyListeners();
+                  }
+                  Navigator.pop(context); // Dismiss the bottom sheet
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.camera_alt),
+                title: Text('Take a Photo'),
+                onTap: () async {
+                  final pickedImage =
+                      await ImagePicker().pickImage(source: ImageSource.camera);
+                  if (pickedImage != null) {
+                    _image = File(pickedImage.path);
+                    notifyListeners();
+                  }
+                  Navigator.pop(context); // Dismiss the bottom sheet
+                },
+              ),
+            ],
+          );
+        });
+  }
 
   Widget nameTextField() {
     return const Center(

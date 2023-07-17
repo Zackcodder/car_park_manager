@@ -71,10 +71,12 @@ class LoginView extends StackedView<LoginViewModel> {
               // Fingerprint logo
               Container(
                 margin: const EdgeInsets.only(bottom: 30, left: 50, right: 80),
-                child: IconButton(
-                  onPressed: viewModel.authenticate,
-                  icon: const Icon(Icons.fingerprint_sharp,
-                      size: 70, color: Colors.blue),
+                child: Center(
+                  child: IconButton(
+                    onPressed: viewModel.authenticate,
+                    icon: const Icon(Icons.fingerprint_sharp,
+                        size: 70, color: Colors.blue),
+                  ),
                 ),
               ),
               const Text('Fingerprint Auth', style: TextStyle(fontSize: 20.0)),

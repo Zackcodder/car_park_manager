@@ -18,7 +18,7 @@ class FeedbackViewModel extends BaseViewModel {
 
   //navigates to MainPage
   nToHome() {
-    _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
+    _navigationService.pushNamedAndRemoveUntil(Routes.mainPageView);
   }
 
   //navigates to Qr code generator

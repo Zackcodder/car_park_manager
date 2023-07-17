@@ -14,8 +14,6 @@ enum _SupportState {
 }
 
 class LoginViewModel extends BaseViewModel {
-  final _bottomSheetService = locator<BottomSheetService>();
-
   final _navigationService = locator<NavigationService>();
 
   late final LocalAuthentication auth = LocalAuthentication();

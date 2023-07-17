@@ -8,7 +8,7 @@ import 'package:car_park_manager/app/app.router.dart';
 import 'package:car_park_manager/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-Future<void> main() async {
+main() async {
   AwesomeNotifications().initialize(
     null,
     [

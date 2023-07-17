@@ -82,7 +82,7 @@ class MainPageViewModel extends BaseViewModel {
 
   //navigates to login
   nToHome() {
-    _navigationService.navigateTo(Routes.homeView);
+    _navigationService.navigateTo(Routes.mainPageView);
   }
 
   //navigates to Qr code generator

@@ -16,58 +16,59 @@ class ProfileView extends StackedView<ProfileViewModel> {
   ) {
     return Scaffold(
       body: Container(
-          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-          child: ListView(
-            padding: EdgeInsets.only(left: 30, right: 30),
-            children: [
-              Center(
-                heightFactor: 2,
-                child: Stack(
-                  children: [
-                    CircleAvatar(
-                      radius: 80.0,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50.0),
-                        child: viewModel.image == null
-                            ? const Icon(
-                                Icons.person,
-                                size: 50,
-                                color: Colors.white,
-                              )
-                            : CircleAvatar(
-                                radius: 80,
-                                backgroundImage: FileImage(viewModel.image!),
-                              ),
+        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+        child: ListView(
+          padding: const EdgeInsets.only(left: 30, right: 30),
+          children: [
+            Center(
+              heightFactor: 2,
+              child: Stack(
+                children: [
+                  CircleAvatar(
+                    radius: 80.0,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50.0),
+                      child: viewModel.image == null
+                          ? const Icon(
+                              Icons.person,
+                              size: 50,
+                              color: Colors.white,
+                            )
+                          : CircleAvatar(
+                              radius: 80,
+                              backgroundImage: FileImage(viewModel.image!),
+                            ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 20.0,
+                    right: 10.0,
+                    child: InkWell(
+                      onTap: () {
+                        viewModel.takePhoto(context);
+                      },
+                      child: const Icon(
+                        Icons.camera_alt,
+                        color: Colors.blue,
+                        size: 30.0,
                       ),
                     ),
-                    Positioned(
-                      bottom: 20.0,
-                      right: 10.0,
-                      child: InkWell(
-                        onTap: () {
-                          viewModel.showUpdateStatusBottomSheet();
-                        },
-                        child: const Icon(
-                          Icons.camera_alt,
-                          color: Colors.blue,
-                          size: 30.0,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              // viewModel.imageProfile(),
-              verticalSpaceSmall,
-              viewModel.nameTextField(),
-              verticalSpaceSmall,
-              viewModel.jobTextField(),
-              verticalSpaceSmall,
-              viewModel.locationTextField(),
-              verticalSpaceSmall,
-              viewModel.departmentTextField(),
-            ],
-          )),
+            ),
+            // viewModel.imageProfile(),
+            verticalSpaceSmall,
+            viewModel.nameTextField(),
+            verticalSpaceSmall,
+            viewModel.jobTextField(),
+            verticalSpaceSmall,
+            viewModel.locationTextField(),
+            verticalSpaceSmall,
+            viewModel.departmentTextField(),
+          ],
+        ),
+      ),
     );
   }
 

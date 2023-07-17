@@ -135,10 +135,7 @@ class _MainPageViewState extends State<MainPageView> {
                       zoomControlsEnabled: false,
                       mapType: MapType.normal,
                       circles: viewModel.circles,
-                      // markers: viewModel.markers,
                       initialCameraPosition: viewModel.googlePlex,
-                      // CameraPosition(
-                      //     target: LatLng(10.4418805593, 7.49562339819), zoom: 14),
                       onMapCreated: (GoogleMapController controller) async {
                         mapController = controller;
                         _controller.complete(controller);
@@ -186,24 +183,6 @@ class _MainPageViewState extends State<MainPageView> {
                       ),
                     ),
                   )
-                  // verticalSpaceSmall,
-                  // Expanded(
-                  //   child: ListView.builder(
-                  //       itemCount: viewModel.placeLists.length,
-                  //       itemBuilder: (context, int index) {
-                  //         return (viewModel.placeList.isNotEmpty)
-                  //             ? Card(
-                  //                 color: Colors.blue,
-                  //                 child: ListTile(
-                  //                   title: Text(
-                  //                       viewModel.placeLists[index].name ??
-                  //                           'Loading'),
-                  //                   //  Text('Loading available Car parks')
-                  //                 ),
-                  //               )
-                  //             : Center(child: CircularProgressIndicator());
-                  //       }),
-                  // )
                 ],
               )),
         );
@@ -211,27 +190,3 @@ class _MainPageViewState extends State<MainPageView> {
     );
   }
 }
-
-// class MainPageView extends StackedView<MainPageViewModel> {
-//   const MainPageView({Key? key}) : super(key: key);
-
-//   @override
-//   Widget builder(
-//     BuildContext context,
-//     MainPageViewModel viewModel,
-//     Widget? child,
-//   ) {
-//     return Scaffold(
-//       backgroundColor: Theme.of(context).colorScheme.background,
-//       body: Container(
-//         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-//       ),
-//     );
-//   }
-
-//   @override
-//   MainPageViewModel viewModelBuilder(
-//     BuildContext context,
-//   ) =>
-//       MainPageViewModel();
-// }
